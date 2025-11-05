@@ -1,0 +1,104 @@
+String Method
+
+JavaScript String methods — what they do & how to use them
+
+Below is a compact, up-to-date cheat sheet of all standard methods on String (static) and methods on String.prototype (instance). Quick note: strings are immutable—methods return new strings and don’t change the original.
+
+Static methods (call as String.method(...))
+
+String.fromCharCode(...codeUnits) → Build a string from UTF-16 code units.
+Syntax: String.fromCharCode(65, 66) → "AB".
+
+String.fromCodePoint(...codePoints) → Build a string from Unicode code points (handles astral chars).
+Syntax: String.fromCodePoint(0x1F680)
+
+String.raw(callSite, ...substitutions) → Template-tag that returns the raw string (escapes like \n aren’t interpreted).
+Syntax: String.raw`C:\temp\new\file.txt`. 
+
+
+Instance methods (call on a string value, e.g. "abc".method(...))
+Character access & Unicode
+
+at(index) → One UTF-16 code unit at index (supports negatives).
+Syntax: "abc".at(-1) → "c".
+
+charAt(index) → Char at index.
+Syntax: "abc".charAt(1) → "b".
+
+charCodeAt(index) → UTF-16 code unit number at index.
+Syntax: "A".charCodeAt(0) → 65.
+
+codePointAt(pos) → Unicode code point starting at pos.
+Syntax: "🚀".codePointAt(0).
+
+isWellFormed() → true if the string has no lone surrogates.
+Syntax: str.isWellFormed(). 
+
+toWellFormed() → Replace any lone surrogates with U+FFFD.
+Syntax: str.toWellFormed(). 
+
+normalize([form]) → Unicode normalization ("NFC", "NFD", "NFKC", "NFKD").
+Syntax: str.normalize("NFC"). 
+
+[Symbol.iterator]() → Iterator over code points (used by for...of).
+Usage: for (const ch of str) { ... }. 
+
+Searching & comparison
+
+indexOf(searchValue, [fromIndex]), lastIndexOf(searchValue, [fromIndex]) → Find positions or -1. 
+
+includes(searchString, [position]) → true if substring exists. 
+
+startsWith(searchString, [position]), endsWith(searchString, [endPosition]) → Prefix/suffix checks. 
+
+localeCompare(compareString, [locales], [options]) → Locale-aware ordering; returns -1|0|1. 
+
+Extracting, splitting, joining-adjacent
+
+slice(begin, [end]) → Substring by half-open range (supports negatives). 
+
+substring(start, [end]) → Substring by indices (swaps if start > end, no negatives).
+
+split(separator?, [limit]) → Split to array by string/regex. 
+
+concat(...strings) → Concatenate; usually + is simpler. 
+
+Padding, repeating, trimming
+
+padStart(targetLength, [padString]), padEnd(targetLength, [padString]) → Left/right pad to length. 
+
+repeat(count) → Repeat string count times. 
+
+trim(), trimStart(), trimEnd() → Remove whitespace at both/start/end.
+Aliases: trimLeft/trimRight exist for web-compat but prefer trimStart/End. 
+
+Case conversion
+
+toUpperCase(), toLowerCase() → Simple case transforms. 
+
+toLocaleUpperCase([locales]), toLocaleLowerCase([locales]) → Locale-aware case. 
+
+Regex-powered methods
+
+match(regexp) → Array (or null) for the first match set. 
+
+matchAll(regexp) → Iterator over all matches (incl. capture groups). If regexp is a RegExp, it must have the g flag.
+
+replace(searchFor, replaceWith) → Replace first match (or all if regex has g). 
+
+replaceAll(searchFor, replaceWith) → Replace all matches; if searchFor is a RegExp, it must have g.
+
+search(regexp) → Index of first regex match, or -1.
+
+Misc conversion
+
+toString() → String representation (overrides Object.prototype.toString).
+
+valueOf() → Primitive string value (rarely needed directly).
+
+Legacy / deprecated (avoid in new code)
+
+These HTML-wrapper methods produce old <font>, <b>-style markup and are deprecated:
+anchor, big, blink, bold, fixed, fontcolor, fontsize, italics, link, small, strike, sub, sup.
+
+Also substr(start, length?) is deprecated—use slice or substring instead. 
